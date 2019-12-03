@@ -61,35 +61,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newRoleModalLabel">Tambah Data Dana</h5>
+                <h5 class="modal-title" id="newRoleModalLabel">Tambah Users</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- method="post" ketika input tidak terlihat di url -->
             <!-- action untuk mengarakan controller role -->
-            <form action="<?= base_url('dana'); ?>" method="post">
+            <form action="<?= base_url('user'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nama Donatur" name="nama_donatur" id="nama_donatur" />
+                        <input type="text" class="form-control" placeholder="Nama User" name="name" id="name" />
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Perusahaan" name="perusahaan" id="perusahaan" />
+                        <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" name="alamat" id="alamat" rows="3" placeholder="Alamat"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="validationTooltipUsernamePrepend">Rp</span>
-                            </div>
-                            <input type="text" class="form-control" name="dana" id="rupiah" placeholder="Nominal Dana" aria-describedby="validationTooltipUsernamePrepend">
-                            <small class="form-text text-danger"><?= form_error('dana'); ?></small>
-                            <div class="invalid-tooltip">
-                                Please choose a unique and valid username.
-                            </div>
-                        </div>
+                        <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
                     </div>
                 </div>
                 <div class="modal-footer">
