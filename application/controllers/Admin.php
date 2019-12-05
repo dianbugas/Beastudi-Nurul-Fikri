@@ -119,6 +119,128 @@ class Admin extends CI_Controller
         }
     }
 
+    public function tambahuser(){
+        $this->load->model('Beastudi_model');
+
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data = [
+            'name' => htmlspecialchars($this->input->post('name', true)),
+            'email' => htmlspecialchars($this->input->post('email', true)),
+            'image' => 'default.jpg',
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'role_id' => htmlspecialchars($this->input->post('role_id', true)),
+            'is_active' => 1,
+            'date_created' => time()
+        ];
+
+        // siapkan token 
+        $token = base64_encode(random_bytes(32));
+        //mengambil data dari 91        
+        $user_token = [
+            'token' => $token,
+            'date_created' => time()
+        ];
+
+        $this->db->insert('user', $data);
+        $this->db->insert('user_token', $user_token);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat! Anda telah menambahkan akun baru</div>');
+        redirect('admin/users');
+    }
+
+    private function _sendEmail($token, $type)
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'ardiansyahbugas@gmail.com',
+            'smtp_pass' => '200616Ynf',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+
+        //$this->load->library('email', $config);
+        $this->email->initialize($config);  //tambahkan baris ini
+
+        $this->email->from('ardiansyahbugas@gmail.com', 'Matla');
+        $this->email->to($this->input->post('email'));
+        // untuk cek apakah $type == 'verify' untuk verifikasi akun
+        // untuk cek apakah $type == 'verify' untuk verifikasi akun
+        if ($type == 'verify') {
+            $this->email->subject('Aktivasi Akun');
+            $this->email->message('
+            <h1>Selamat anda telah berhasil terdaftar!</h1><br><br>
+            <p>Tinggal selangkah lagi akun anda akan aktif.<br>
+            Klik link aktivasi ini untuk mengaktifkan akun anda: <strong><a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Aktifkan</a></strong>
+            <br><br>
+            Masa aktif link 1x24, lebih dari itu anda harus mendaftar ulang.</p>
+            ');
+        } else if ($type == 'forgot') {
+            $this->email->subject('Reset Password');
+            $this->email->message('
+            <p>Klik link ini untuk reset password akun anda: <strong><a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset Password</a></strong>
+            <br><br>
+            Masa aktif link 1x24, lebih dari itu anda harus melakukan reset ulang.</p>
+            ');
+        }
+
+        // if ($type == 'verify') {
+        //     $this->email->subject('Account Verification');
+        //     //cara baca nya : base_url(). di gabung ke controller auth and method verify ... setiap = berarti di gabung
+        //     $this->email->message('Klik tautan ini untuk memverifikasi akun Anda : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Aktivasi</a>');
+        // }
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
+        //ambil sebaris saja
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+        //cek email
+        if ($user) {
+            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+            //cek token
+            if ($user_token) {
+                //cek batas waktu sampai 24 jam
+                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+                    //klu bener. maka di update dgn menggunakan query builder
+                    $this->db->set('is_active', 1);
+                    $this->db->where('email', $email);
+                    $this->db->update('user');
+
+                    // ketika perintah di atas success maka di hapus tokennya
+                    $this->db->delete('user_token', ['email' => $email]);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' Akun anda telah diaktifkan! Silahkan login.</div>');
+                    redirect('auth');
+                } else {
+                    //kita hapus dulu data di dalam databse karena habis waktu untuk aktivasi
+                    $this->db->delete('user', ['email' => $email]);
+                    $this->db->delete('user_token', ['email' => $email]);
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aktivasi akun gagal! Token kedaluwarsa.</div>');
+                    redirect('auth');
+                }
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aktivasi akun gagal! Token anda salah.</div>');
+                redirect('auth');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Aktivasi akun gagal! Email yang salah.</div>');
+            redirect('auth');
+        }
+    }
+
+
     // khusus admin masih error
     public function editusers($id)
     {

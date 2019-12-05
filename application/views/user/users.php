@@ -68,16 +68,29 @@
             </div>
             <!-- method="post" ketika input tidak terlihat di url -->
             <!-- action untuk mengarakan controller role -->
-            <form action="<?= base_url('user'); ?>" method="post">
+            <form action="<?= base_url('admin/tambahuser'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Nama User" name="name" id="name" />
+                        <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
+                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
+                    </div>
+                    <div class="form-group">
+                            <select name="role_id" id="role_id" class="form-control">
+                            <option class="hidden" selected disabled> -- Pilih Role User --</option>
+                                <?php
+                                    $query = $this->db->query("SELECT * FROM user_role")->result();
+                                    foreach ($query as $p) : ?>
+                                    <option value="<?= $p->id; ?>"><?= $p->role; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?= form_error('role_id', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
                 <div class="modal-footer">
