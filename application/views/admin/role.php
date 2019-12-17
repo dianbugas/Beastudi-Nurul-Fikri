@@ -26,7 +26,7 @@
                   <td><?= $r['role']; ?></td>
                   <td>
                     <!-- kita ke method role access dan sambil mengirimkan id -->
-                    <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-warning">access</a>
+                    <a href="<?= base_url('admin/roleaccess/') . $r['id']; ?>" class="badge badge-success">access</a>
                     <!-- <a href="#" class="badge badge-success">Edit</a> -->
                     <!-- <a href="#" class="badge badge-danger">delete</a> -->
                   </td>

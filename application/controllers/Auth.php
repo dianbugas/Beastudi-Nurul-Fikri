@@ -137,7 +137,7 @@ class Auth extends CI_Controller
         //$this->load->library('email', $config);
         $this->email->initialize($config);  //tambahkan baris ini
 
-        $this->email->from('ardiansyahbugas@gmail.com', 'Matla');
+        $this->email->from('ardiansyahbugas@gmail.com', 'Beastudi Nurul Fikri');
         $this->email->to($this->input->post('email'));
         // untuk cek apakah $type == 'verify' untuk verifikasi akun
         // untuk cek apakah $type == 'verify' untuk verifikasi akun
@@ -148,7 +148,9 @@ class Auth extends CI_Controller
             <p>Tinggal selangkah lagi akun anda akan aktif.<br>
             Klik link aktivasi ini untuk mengaktifkan akun anda: <strong><a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Aktifkan</a></strong>
             <br><br>
-            Masa aktif link 1x24, lebih dari itu anda harus mendaftar ulang.</p>
+            Masa aktif link 1x24 Jam, lebih dari itu anda harus mendaftar ulang.</p>
+            <br>
+            <p>Terima Kasih</p>
             ');
         } else if ($type == 'forgot') {
             $this->email->subject('Reset Password');
