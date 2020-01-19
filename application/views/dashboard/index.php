@@ -98,6 +98,7 @@
                             <th scope="col">Angkatan</th>
                             <th scope="col">Program Studi</th>
                             <th scope="col">Kontribusi</th>
+                            <th scope="col">Waktu Kontribusi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,6 +125,12 @@
                                         } ?>
                                 </td>
                                 <td>
+                                    <?php foreach ($kontribusi as $k) { ?>
+                                    <?php if ($k->id == $bs['kontribusi_id']) {
+                                                echo $k->kontribusi;
+                                            }
+                                        } ?>
+                                </td><td>
                                     <?php foreach ($kontribusi as $k) { ?>
                                     <?php if ($k->id == $bs['kontribusi_id']) {
                                                 echo $k->kontribusi;

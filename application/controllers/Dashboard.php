@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Beastudi_model');
+        $this->load->model('Kontribusimhs_model');
         $this->load->model('Pic_model');
         $this->load->model('Beastudi_model', 'pic');
         // di tendang supaya user tdk masuk sembarangan lewat url
@@ -23,15 +24,10 @@ class Dashboard extends CI_Controller
         $data['semester'] = $this->pic->getData('semester');
         $data['programstudi'] = $this->pic->getData('programstudi');
         $data['kontribusi'] = $this->pic->getData('kontribusi');
+        //$data['kontribusimhs'] = $this->pic->getData('kontribusimhs');
+
         $data['beastudi'] = $this->pic->getBeastudi();
         $data['pic'] = $this->db->get('pic')->result_array();
-
-        // //beastudi
-        // $this->load->model('Beastudi_model', 'nama');
-        // //query submenu
-        // //model menunya di aliaskan yg diatas Menjadi Menu_model dan method getSubModel
-        // $data['subBeastudi'] = $this->nama->getBeastudi();
-        // $data['beastudi'] = $this->db->get('beastudi')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

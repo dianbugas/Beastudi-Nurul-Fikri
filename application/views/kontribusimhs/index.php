@@ -24,17 +24,23 @@
                             <?php foreach ($kontribusimhs as $da) : ?>
                                 <tr>
                                     <th scope="row"><?= $i++; ?></th>
-                                    <td><?= $da['nama']; ?></td>
+                                    <td>
+                                    <?php foreach ($beastudi as $be) { ?>
+                                    <?php if ($be->id == $da['nama_id']) {
+                                                echo $be->nama_mh;
+                                            }
+                                        } ?>
+                                    </td>
                                     <td><?php foreach ($kontribusi as $k) { ?>
                                     <?php if ($k->id == $da['kontribusi_id']) {
                                                 echo $k->kontribusi;
                                             }
-                                        } ?>
+                                    } ?>
                                         </td>
                                     <td><?= $da['date']; ?></td>
                                     <td>
-                                        <a href="<?= base_url(); ?>dana/edit/<?= $da['id']; ?>" class="badge badge-success">Edit</a>
-                                        <a href="<?= base_url(); ?>dana/delete/<?= $da['id']; ?>" class="badge badge-danger">delete</a>
+                                        <a href="<?= base_url(); ?>kontribusimhs/edit/<?= $da['id']; ?>" class="badge badge-success">Edit</a>
+                                        <a href="<?= base_url(); ?>kontribusimhs/delete/<?= $da['id']; ?>" class="badge badge-danger">delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -59,10 +65,15 @@
             </div>
             <!-- method="post" ketika input tidak terlihat di url -->
             <!-- action untuk mengarakan controller role -->
-            <form action="<?= base_url('kontribusimhs'); ?>" method="post">
+            <form action="<?= base_url('kontribusimhs/insert'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nama Mahasiswa" name="nama" id="nama" />
+                    <select class="form-control" id="nama_mh" name="nama_mh">
+                            <option class="hidden" selected disabled> -- Mahasiswa Beastudi --</option>
+                            <?php foreach ($beastudi as $be) { ?>
+                                <option value="<?= $be->id ?>"> <?= $be->nama_mh ?></option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <select class="form-control" id="kontribusi" name="kontribusi">
