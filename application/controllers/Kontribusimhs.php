@@ -23,15 +23,29 @@ class Kontribusimhs extends CI_Controller
         $data['beastudi'] = $this->pic->getData('beastudi');
         $data['kontribusimhs'] = $this->db->get('kontribusimhs')->result_array();
 
+        $this->form_validation->set_rules('nama_mh', 'Nama', 'required|unique');
+        if ($this->form_validation->run() == false) {
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('kontribusimhs/index', $data);
         $this->load->view('templates/footer');
+    } else {
+        $data = [
+            'nama_id' => $this->input->post('nama_mh'),
+            'kontribusi_id' => $this->input->post('kontribusi'),
+            'date' => $this->input->post('date')
+        ];
+        $this->Kontribusimhs_model->insertData('kontribusimhs', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kontribusi Mahasiswa baru ditambahkan!</div>');
+        redirect('kontribusimhs');
+        }
     }
 
     public function insert()
     {
+        $this->form_validation->set_rules('nama_id', 'Nama', 'required|unique');
+
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data = [

@@ -20,6 +20,7 @@
                                                         } ?> value="<?= $p->id; ?>"><?= $p->nama_mh; ?>
                                         </option>
                                     <?php endforeach; ?>
+                                <small class="form-text- text-danger"><?= form_error('nama_id'); ?></small>
                                 </select> 
                             </div>
                         </div>
@@ -31,7 +32,6 @@
                                         <option <?= $s->id == $bes->kontribusi_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->kontribusi; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-                                <small class="form-text- text-danger"><?= form_error('kontribusi'); ?></small>
                             </div>
                         </div>
                         <div class="form-group row">
