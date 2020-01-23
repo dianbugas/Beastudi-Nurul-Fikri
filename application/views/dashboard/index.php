@@ -93,7 +93,6 @@
 							<th scope="col">No</th>
 							<th scope="col">PIC</th>
 							<th scope="col">Nama</th>
-							<th scope="col">Jenis Kelamin</th>
 							<th scope="col">Semester</th>
 							<th scope="col">Angkatan</th>
 							<th scope="col">Program Studi</th>
@@ -107,7 +106,6 @@
 								<th scope="row"><?= $i++; ?></th>
 								<td><?= $bs['nama']; ?></td>
 								<td><?= $bs['nama_mh']; ?></td>
-								<td><?= $bs['jk']; ?></td>
 								<td>
 									<?php foreach ($semester as $s) { ?>
 									<?php if ($s->id == $bs['semester_id']) {

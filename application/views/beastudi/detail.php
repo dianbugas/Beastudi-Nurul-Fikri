@@ -1,25 +1,15 @@
 <!-- Begin Page Content -->
 <div class="container">
-	<div class="card" style="width: 18rem;">
-		<div class="card-header">
-			Featured
-		</div>
-		<ul class="list-group list-group-flush">
-			<li class="list-group-item">Cras justo odio</li>
-			<li class="list-group-item">Dapibus ac facilisis in</li>
-			<li class="list-group-item">Vestibulum at eros</li>
-		</ul>
-	</div>
 	<div class="row mt-4">
 		<div class="col md-3">
 			<h3>Detail Mahasiswa Beastudi</h3>
 			<table class="table table-striped table-bordered">
 				<tr>
-					<th scope="col">Nama Mahasiswa</th>
-					<th scope="col"><?= $beastudi['nama_mh']; ?></th>
+					<th class="w-25">Nama Mahasiswa</th>
+					<th class="w-15"><?= $beastudi['nama_mh']; ?></th>
 				</tr>
 				<tr>
-					<th scope="col">PIC</th>
+					<th scope=" col">PIC</th>
 					<th scope="col"><?= $beastudi['pic_id']; ?></th>
 				</tr>
 				<tr>
@@ -47,8 +37,6 @@
 					<th scope="col"><?= $beastudi['keterangan']; ?></th>
 				</tr>
 			</table>
-			<a href="" class="btn btn-success">Edit</a>
-			<a href="" class="btn btn-danger" onclick="return confirm('yakin menghapus data?');">delete</a>
 			<a href="<?= base_url(); ?>beastudi/" class="btn btn-primary">Kembali</a>
 		</div>
 	</div>
