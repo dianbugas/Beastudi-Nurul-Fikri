@@ -1,43 +1,96 @@
 <!-- Begin Page Content -->
 <div class="container">
-	<div class="row mt-4">
-		<div class="col md-3">
-			<h3>Detail Mahasiswa Beastudi</h3>
-			<table class="table table-striped table-bordered">
-				<tr>
-					<th class="w-25">Nama Mahasiswa</th>
-					<th class="w-15"><?= $beastudi['nama_mh']; ?></th>
-				</tr>
-				<tr>
-					<th scope=" col">PIC</th>
-					<th scope="col"><?= $beastudi['pic_id']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Jenis Kelamin</th>
-					<th scope="col"><?= $beastudi['jk']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Program Studi</th>
-					<th scope="col"><?= $beastudi['programstudi_id']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Semester</th>
-					<th scope="col"><?= $beastudi['semester_id']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Angkatan</th>
-					<th scope="col"><?= $beastudi['angkatan']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Kontribusi</th>
-					<th scope="col"><?= $beastudi['kontribusi_id']; ?></th>
-				</tr>
-				<tr>
-					<th scope="col">Keterangan</th>
-					<th scope="col"><?= $beastudi['keterangan']; ?></th>
-				</tr>
-			</table>
-			<a href="<?= base_url(); ?>beastudi/" class="btn btn-primary">Kembali</a>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="modal-body">
+				<?php foreach ($beastudi1 as $bes) { ?>
+					<form action="#" method='get'>
+						<input type="hidden" name="id" value="<?= $bes->id ?>">
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">PIC</label>
+							<div class="col-sm-7">
+								<select name="pic_id" id="pic_id" class="form-control" disabled>
+									<?php
+									$query = $this->db->query("SELECT * FROM pic")->result();
+									foreach ($query as $p) : ?>
+										<option <?php if ($p->id == $bes->pic_id) {
+													echo 'selected';
+												} ?> value="<?= $p->id; ?>"><?= $p->nama; ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+								<small class="form-text- text-danger"><?= form_error('menu_id'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Nama</label>
+							<div class="col-sm-7">
+								<input type="text" name="nama_mh" class="form-control" id="nama_mh" placeholder="Nama Lengkap" value="<?= $bes->nama_mh ?>" readonly>
+								<small class="form-text- text-danger"><?= form_error('nama_mh'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+							<div class="col-sm-7">
+								<div class="form-group">
+									<input type="text" name="nama_mh" class="form-control" id="nama_mh" placeholder="Nama Lengkap" value="<?= $beastudi['jk']; ?>" readonly>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Semester</label>
+							<div class="col-sm-7">
+								<select class="form-control" name="semester" id="semester" disabled>
+									<?php foreach ($semester as $s) : ?>
+										<option <?= $s->id == $bes->semester_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->semester; ?></option>
+									<?php endforeach; ?>
+								</select>
+								<small class="form-text- text-danger"><?= form_error('semester'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Angkatan</label>
+							<div class="col-sm-7">
+								<input type="number" maxlength="4" class="form-control" placeholder="Angkatan" id="angkatan" name="angkatan" value="<?= $bes->angkatan ?>" readonly>
+								<small class="form-text- text-danger"><?= form_error('angkatan'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Program Studi</label>
+							<div class="col-sm-7">
+								<select class="form-control" name="programstudi" id="programstudi" disabled>
+									<?php foreach ($programstudi as $s) : ?>
+										<option <?= $s->id == $bes->programstudi_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->programstudi; ?></option>
+									<?php endforeach; ?>
+								</select>
+								<small class="form-text- text-danger"><?= form_error('programstudi'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Kontribusi</label>
+							<div class="col-sm-7">
+								<select class="form-control" name="kontribusi" id="kontribusi" disabled>
+									<?php foreach ($kontribusi as $s) : ?>
+										<option <?= $s->id == $bes->kontribusi_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->kontribusi; ?></option>
+									<?php endforeach; ?>
+								</select>
+								<small class="form-text- text-danger"><?= form_error('kontribusi'); ?></small>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="menu" class="col-sm-3 col-form-label">Keterangan</label>
+							<div class="col-sm-7">
+								<textarea class="form-control" rows="5" name="keterangan" id="keterangan" readonly><?= $bes->keterangan; ?></textarea>
+							</div>
+						</div>
+						<div class=" form-file row justify-content-end">
+							<div class="col-sm-9">
+								<a href="<?= base_url(); ?>beastudi/" class="btn btn-primary">Kembali</a>
+							</div>
+						</div>
+					</form>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
 </div>
