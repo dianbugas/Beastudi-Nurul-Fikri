@@ -61,10 +61,13 @@ class Beastudi extends CI_Controller
 		$data['title'] = 'Detail Beastudi';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['beastudi'] = $this->Beastudi_model->getBeastudiById($id);
+		$where = array('id' => $id);
+		$data['beastudi1'] = $this->Beastudi_model->editdata($where, 'beastudi')->result();
 
 		$data['semester'] = $this->pic->getData('semester');
 		$data['kontribusi'] = $this->pic->getData('kontribusi');
 		$data['programstudi'] = $this->pic->getData('programstudi');
+		$data['jurusan'] = ['Teknik Informatika', 'Sistem Informasi'];
 		//$data['beastudi'] = $this->pic->getBeastudi();
 		$data['pic'] = $this->db->get('pic')->result_array();
 
@@ -83,11 +86,9 @@ class Beastudi extends CI_Controller
 		$data['beastudi'] = $this->Beastudi_model->editdata($where, 'beastudi')->result();
 
 		$data['jurusan'] = ['Teknik Informatika', 'Sistem Informasi'];
-		//$data['kontribusi'] = ['Content', 'Upload Content', 'Website Developer', 'Design Graphic', 'Video Content', 'LPPM', 'Inkubator', 'LPMI'];
 		$data['kontribusi'] = $this->Beastudi_model->getData('kontribusi');
 		$data['semester'] = $this->Beastudi_model->getData('semester');
 		$data['programstudi'] = $this->pic->getData('programstudi');
-
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
