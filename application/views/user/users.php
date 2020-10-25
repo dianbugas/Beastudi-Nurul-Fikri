@@ -1,15 +1,18 @@
-<!-- Begin Page Content -->
 <div class="container-fluid">
-	<!-- Page Heading -->
-	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-	<div class="row">
-		<div class="col-lg">
+	<div class="card shadow mb-4">
+		<div class="card border-left-primary shadow h-100 py-2">
 			<div class="card-body">
+				<div class="d-sm-flex align-items-center justify-content-between mb-4">
+					<h3 class="h3 mb-0 text-gray-800"><?= $title; ?></h3>
+					<a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" data-toggle="modal" data-target="#newUsersModal">Tambah</a>
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<?= form_error('beastudi', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
+						<?= $this->session->flashdata('message'); ?>
+					</div>
+				</div>
 				<div class="table-responsive">
-					<!-- untuk menampilkan erorr -->
-					<?= form_error('dana', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-					<?= $this->session->flashdata('message'); ?>
-					<a href="" class="btn btn-primary mb-2" data-toggle="modal" data-target="#newRoleModal">Tambah User</a>
 					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
@@ -61,7 +64,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="newRoleModal" tabindex="-1" role="dialog" aria-labelledby="newRoleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newUsersModal" tabindex="-1" role="dialog" aria-labelledby="newRoleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

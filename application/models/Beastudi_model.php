@@ -47,6 +47,24 @@ class Beastudi_model extends CI_Model
 		return $this->db->query($query)->result_array(); //RESULT ARRAY untuk menampilkan semua data
 	}
 
+	//ADMIN. PIC. USER
+	function tampil_data()
+	{
+		// $query = $this->db->query('SELECT * FROM `wp9d_wc_order_product_lookup` INNER JOIN wp9d_wc_customer_lookup ON wp9d_wc_order_product_lookup.customer_id=wp9d_wc_customer_lookup.customer_id JOIN user ON wp9d_wc_customer_lookup.email=user.email');
+		// $query = $this->db->query('SELECT * FROM `wp9d_wc_customer_lookup` INNER JOIN user ON wp9d_wc_customer_lookup.email=user.email');
+		// $query = $this->db->query("SELECT * FROM wp9d_wc_customer_lookup, user
+		// WHERE wp9d_wc_customer_lookup.email=user.email
+		// AND wp9d_wc_customer_lookup.email='$_SESSION[email]'");
+
+		// $query = "SELECT `beastudi`.*, `pic`.`nama`
+		//           FROM `beastudi` JOIN `pic`
+		//           ON `beastudi`.`pic_id` = `pic`.`id`
+		// 		";
+
+		$query = "SELECT * FROM `beastudi` INNER JOIN `pic` ON beastudi.pic_id=pic.id WHERE beastudi.pic_id=pic.id";
+		return $this->db->query($query)->result_array();
+	}
+
 	public function input_data($menu_id, $nama, $jk, $semester, $angkatan, $programstudi, $kontribusi)
 	{
 		$query = "INSERT INTO beastudi (nama_mh,jk,semester,angkatan,programstudi,kontribusi,pic_id) VALUES ('$nama','$jk','$semester','$angkatan','$programstudi','$kontribusi','$menu_id')";

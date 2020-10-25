@@ -8,6 +8,7 @@ class Auth extends CI_Controller
 		parent::__construct();
 		$this->load->library('form_validation');
 		//$this->load->library('googleplus');
+		//$this->load->library('googleplus');
 	}
 
 	public function index()
@@ -126,8 +127,8 @@ class Auth extends CI_Controller
 		$config = [
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
-			'smtp_user' => 'ardiansyahbugas@gmail.com',
-			'smtp_pass' => '200616Ynf',
+			'smtp_user' => 'dianynf20@gmail.com',
+			'smtp_pass' => '200616ynf',
 			'smtp_port' => 465,
 			'mailtype' => 'html',
 			'charset' => 'utf-8',
@@ -137,7 +138,7 @@ class Auth extends CI_Controller
 		//$this->load->library('email', $config);
 		$this->email->initialize($config);  //tambahkan baris ini
 
-		$this->email->from('ardiansyahbugas@gmail.com', 'Beastudi Nurul Fikri');
+		$this->email->from('dianynf20@gmail.com', 'Beastudi Nurul Fikri');
 		$this->email->to($this->input->post('email'));
 		// untuk cek apakah $type == 'verify' untuk verifikasi akun
 		// untuk cek apakah $type == 'verify' untuk verifikasi akun

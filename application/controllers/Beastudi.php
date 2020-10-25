@@ -19,7 +19,7 @@ class Beastudi extends CI_Controller
 	{
 		$data['title'] = 'Beastudi';
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-		//query submenu 
+		//query submenu
 		//model menunya di aliaskan yg diatas Menjadi Menu_model dan method getSubModel
 		$data['semester'] = $this->pic->getData('semester');
 		$data['kontribusi'] = $this->pic->getData('kontribusi');
@@ -49,6 +49,8 @@ class Beastudi extends CI_Controller
 			'programstudi_id' => $this->input->post('programstudi'),
 			'kontribusi_id' => $this->input->post('kontribusi'),
 			'keterangan' => $this->input->post('keterangan'),
+			'status' => $this->input->post('status'),
+			'kelas' => $this->input->post('kelas'),
 		];
 		$this->Beastudi_model->insertData('beastudi', $data);
 		$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Beastudi baru ditambahkan!</div>');
@@ -108,6 +110,8 @@ class Beastudi extends CI_Controller
 			'programstudi_id' => $this->input->post('programstudi'),
 			'kontribusi_id' => $this->input->post('kontribusi'),
 			'keterangan' => $this->input->post('keterangan'),
+			'status' => $this->input->post('status'),
+			'kelas' => $this->input->post('kelas'),
 		];
 
 		$id = ['id' => $this->input->post('id')];

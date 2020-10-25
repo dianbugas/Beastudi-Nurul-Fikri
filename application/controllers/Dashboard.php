@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller
 	public function index()
 	{
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-		$data['title'] = 'Informasi';
+		$data['title'] = 'Daftar Nama Beastudi';
 		$data['pic'] = $this->Pic_model->getAllPic();
 		$data['total_pic'] = $this->Pic_model->hitungJumlahPic();
 		$data['total_beastudi'] = $this->Beastudi_model->hitungJumlahBeastudi();
@@ -26,7 +26,8 @@ class Dashboard extends CI_Controller
 		$data['kontribusi'] = $this->pic->getData('kontribusi');
 		//$data['kontribusimhs'] = $this->pic->getData('date');
 
-		$data['beastudi'] = $this->pic->getBeastudi();
+		// $data['beastudi'] = $this->pic->getBeastudi();
+		$data['beastudi'] = $this->pic->tampil_data();
 		$data['pic'] = $this->db->get('pic')->result_array();
 
 		$this->load->view('templates/header', $data);
