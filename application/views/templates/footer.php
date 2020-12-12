@@ -61,6 +61,19 @@
     <!-- Page level custom scripts -->
     <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
 
+    <script src="<?php echo base_url('assets/js/jQuery-2.1.4.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js'); ?>"></script>
+
+    <script>
+    	$(document).ready(function() {
+    		$('.datepicker').datepicker({
+    			format: 'dd-mm-yyyy',
+    			autoclose: true,
+    			todayHighlight: true,
+    		});
+    	});
+    </script>
+
     <script>
     	$('.custom-file-input').on('change', function() {
     		let fileName = $(this).val().split('\\').pop();
@@ -112,6 +125,113 @@
     		rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
     		return prefix == undefined ? rupiah : rupiah ? " " + rupiah : "";
     	}
+    </script>
+
+    <script>
+    	$(document).ready(function() {
+    		$("#input-b9").fileinput({
+    			showPreview: false,
+    			showUpload: false,
+    			elErrorContainer: '#kartik-file-errors',
+    			allowedFileExtensions: ["jpg", "png", "gif"]
+    			//uploadUrl: '/site/file-upload-single'
+    		});
+    	});
+    </script>
+
+    <!-- multi -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
+
+    <script type="text/javascript">
+    	$(document).ready(function() {
+    		$(".mul-select").select2({
+    			placeholder: "  Pilih Kontribusi", //placeholder
+    			tags: true,
+    			tokenSeparators: ['/', ',', ';', " "]
+    		});
+
+
+    		//GET UPDATE
+    		// $('.update-record').on('click', function() {
+    		// 	var beastudi_id = $(this).data('beastudi_id');
+    		// 	var beastudi_name = $(this).data('beastudi_name');
+    		// 	$(".strings").val('');
+    		// 	$('#UpdateModal').modal('show');
+    		// 	$('[name="edit_id"]').val(beastudi_id);
+    		// 	$('[name="beastudi_edit"]').val(beastudi_name);
+    		// 	//AJAX REQUEST TO GET SELECTED PRODUCT
+    		// 	$.ajax({
+    		// 		url: "<?php echo site_url('beastudi/get_kontribusi_by_beastudi'); ?>",
+    		// 		method: "POST",
+    		// 		data: {
+    		// 			beastudi_id: beastudi_id
+    		// 		},
+    		// 		cache: false,
+    		// 		success: function(data) {
+    		// 			var item = data;
+    		// 			var val1 = item.replace("[", "");
+    		// 			var val2 = val1.replace("]", "");
+    		// 			var values = val2;
+    		// 			$.each(values.split(","), function(i, e) {
+    		// 				$(".strings option[value='" + e + "']").prop("selected", true).trigger('change');
+    		// 				$(".strings").selectpicker('refresh');
+
+    		// 			});
+    		// 		}
+
+    		// 	});
+    		// 	return false;
+    		// });
+
+    		// $('.detail-record').on('click', function() {
+    		// 	var beastudi_id = $(this).data('beastudi_id');
+    		// 	var beastudi_name = $(this).data('beastudi_name');
+    		// 	$(".strings").val('');
+    		// 	$('#DetailModal').modal('show');
+    		// 	$('[name="edit_id"]').val(beastudi_id);
+    		// 	$('[name="beastudi_edit"]').val(beastudi_name);
+    		// 	//AJAX REQUEST TO GET SELECTED PRODUCT
+    		// 	$.ajax({
+    		// 		url: "<?php echo site_url('beastudi/get_kontribusi_by_beastudi'); ?>",
+    		// 		method: "POST",
+    		// 		data: {
+    		// 			beastudi_id: beastudi_id
+    		// 		},
+    		// 		cache: false,
+    		// 		success: function(data) {
+    		// 			var item = data;
+    		// 			var val1 = item.replace("[", "");
+    		// 			var val2 = val1.replace("]", "");
+    		// 			var values = val2;
+    		// 			$.each(values.split(","), function(i, e) {
+    		// 				$(".strings option[value='" + e + "']").prop("selected", true).trigger('change');
+    		// 				$(".strings").selectpicker('refresh');
+
+    		// 			});
+    		// 		}
+
+    		// 	});
+    		// 	return false;
+    		// });
+
+    		// //GET CONFIRM DELETE
+    		// $('.delete-record').on('click', function() {
+    		// 	var beastudi_id = $(this).data('beastudi_id');
+    		// 	$('#DeleteModal').modal('show');
+    		// 	$('[name="delete_id"]').val(beastudi_id);
+    		// });
+
+    	});
+    </script>
+    <!-- update 17 nov 2020 -->
+
+
+    <script>
+    	$(document).ready(function() {
+    		// Sembunyikan alert validasi kosong
+    		$("#kosong").hide();
+    	});
     </script>
 
     </body>

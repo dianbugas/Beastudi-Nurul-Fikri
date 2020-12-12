@@ -17,7 +17,14 @@
 											<label for="menu" class="col-sm-3 col-form-label">Nama</label>
 											<div class="col-sm-9">
 												<input type="text" name="nama" class="form-control" id="nama" value="<?= $pic['nama']; ?>">
-												<small class="form-text- text-danger"><?= form_error('menu_id'); ?></small>
+												<small class="form-text- text-danger"><?= form_error('nama'); ?></small>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="menu" class="col-sm-3 col-form-label">email</label>
+											<div class="col-sm-9">
+												<input type="text" name="email" class="form-control" id="email" value="<?= $pic['email']; ?>">
+												<small class="form-text- text-danger"><?= form_error('email'); ?></small>
 											</div>
 										</div>
 										<div class="form-group row">

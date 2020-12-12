@@ -10,12 +10,20 @@
 							<div class="col-lg-12">
 								<div class="modal-body">
 									<?php foreach ($beastudi as $bes) { ?>
-										<h3 class="text-gray-800">Edit Data <?= $bes->nama_mh ?></h3>
+										<h3 class="text-gray-800">Edit Data
+											<?php
+											$query = $this->db->query("SELECT * FROM mahasiswa")->result();
+											foreach ($query as $k) { ?>
+											<?php if ($k->id == $bes->nama_id) {
+													echo $k->nama;
+												}
+											} ?>
+										</h3>
 										<hr>
 										<form action="<?= base_url() . 'beastudi/update'; ?>" method='post'>
-											<input type="hidden" name="id" value="<?= $bes->id ?>">
+											<input type="hidden" name="beastudi_id" value="<?= $bes->beastudi_id ?>">
 											<div class="form-group row">
-												<label for="menu" class="col-sm-3 col-form-label">PIC</label>
+												<label for="menu" class="col-sm-3 col-form-label">Nama PIC</label>
 												<div class="col-sm-9">
 													<select name="pic_id" id="pic_id" class="form-control">
 														<?php
@@ -31,10 +39,19 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="menu" class="col-sm-3 col-form-label">Nama</label>
+												<label for="menu" class="col-sm-3 col-form-label">Nama Mahasiswa</label>
 												<div class="col-sm-9">
-													<input type="text" name="nama_mh" class="form-control" id="nama_mh" placeholder="Nama Lengkap" value="<?= $bes->nama_mh ?>">
-													<small class="form-text- text-danger"><?= form_error('nama_mh'); ?></small>
+													<select class="form-control" name="nama_id" id="nama_id">
+														<?php
+														$query = $this->db->query("SELECT * FROM mahasiswa")->result();
+														foreach ($query as $p) : ?>
+															<option <?php if ($p->id == $bes->nama_id) {
+																		echo 'selected';
+																	} ?> value="<?= $p->id; ?>"><?= $p->nama; ?>
+															</option>
+														<?php endforeach; ?>
+													</select>
+													<small class="form-text- text-danger"><?= form_error('nama_id'); ?></small>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -50,18 +67,18 @@
 											<div class="form-group row">
 												<label for="menu" class="col-sm-3 col-form-label">Kelas</label>
 												<div class="col-sm-9">
-													<input type="text" name="kelas" class="form-control" id="kelas" placeholder="Kelas" value="<?= $bes->kelas ?>">
+													<select class="form-control" name="kelas_id" id="kelas_id">
+														<?php foreach ($kelas as $s) : ?>
+															<option <?= $s->id == $bes->kelas_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->kelas; ?></option>
+														<?php endforeach; ?>
+													</select>
 													<small class="form-text- text-danger"><?= form_error('kelas'); ?></small>
 												</div>
 											</div>
 											<div class="form-group row">
 												<label for="menu" class="col-sm-3 col-form-label">Semester</label>
 												<div class="col-sm-9">
-													<select class="form-control" name="semester" id="semester">
-														<?php foreach ($semester as $s) : ?>
-															<option <?= $s->id == $bes->semester_id ? 'selected' : null; ?> value="<?= $s->id; ?>"><?= $s->semester; ?></option>
-														<?php endforeach; ?>
-													</select>
+													<input type="number" maxlength="4" class="form-control" placeholder="Semester" id="semester" name="semester" value="<?= $bes->semester_id ?>">
 													<small class="form-text- text-danger"><?= form_error('semester'); ?></small>
 												</div>
 											</div>
@@ -95,13 +112,19 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
+												<label for="jk" class="col-sm-3 col-form-label">Status Kontribusi</label>
 												<div class="col-sm-9">
 													<div class="form-group">
 														<label for=""><input type="radio" name="status" value="Sudah Kontribusi" <?= $bes->status == 'Sudah Kontribusi' ? 'checked' : null; ?>> Sudah Kontribusi</label>
 														<label for=""><input type="radio" name="status" value="Belum Kontribusi" <?= ($bes->status == 'Belum Kontribusi') ? 'checked' : ''; ?>> Belum Kontribusi</label>
 														<small class="form-text- text-danger"><?= form_error('status'); ?></small>
 													</div>
+												</div>
+											</div>
+											<div class="form-group row">
+												<label for="jk" class="col-sm-3 col-form-label"> Tanggal Kontribusi</label>
+												<div class="col-sm-9">
+													<input name="tgl" id="tgl" class="form-control datepicker" type="text" placeholder="Tanggal Kontribusi" value="  <?= $bes->tgl ?>">
 												</div>
 											</div>
 											<div class="form-group row">
@@ -112,7 +135,7 @@
 											</div>
 											<div class=" form-file row justify-content-end">
 												<div class="col-sm-9">
-													<button type="submit" class="btn btn-primary">Edit</button>
+													<button type="submit" class="btn btn-primary">Simpan</button>
 												</div>
 											</div>
 										</form>

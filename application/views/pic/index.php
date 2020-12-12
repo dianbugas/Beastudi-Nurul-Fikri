@@ -18,6 +18,7 @@
 							<tr>
 								<th scope="col">No</th>
 								<th scope="col">Nama</th>
+								<th scope="col">Email</th>
 								<th scope="col">Divisi</th>
 								<th scope="col">Aksi</th>
 							</tr>
@@ -28,6 +29,7 @@
 								<tr>
 									<th scope="row"><?= $i++; ?></th>
 									<td><?= $pi['nama']; ?></td>
+									<td><?= $pi['email']; ?></td>
 									<td><?= $pi['divisi']; ?></td>
 									<th>
 										<a href="<?= base_url(); ?>pic/edit/<?= $pi['id']; ?>" class="btn btn-success btn-circle btn-sm">
@@ -64,6 +66,9 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Nama Lengkap" name="nama" id="nama" />
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Email" name="email" id="email" />
 					</div>
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Bagian / Divisi" name="divisi" id="divisi" />

@@ -9,6 +9,11 @@ class Beastudi_model extends CI_Model
 		return $this->db->get($table)->result();
 	}
 
+	public function getAllBeastudi()
+	{
+		return $this->db->get('beastudi')->result_array();
+	}
+
 	public function insertData($table, $data)
 	{
 		$this->db->insert($table, $data);
@@ -20,11 +25,9 @@ class Beastudi_model extends CI_Model
 		$this->db->update($table, $data);
 	}
 
-
-
 	public function getBeastudiById($id)
 	{
-		return $this->db->get_where('beastudi', ['id' => $id])->row_array();
+		return $this->db->get_where('beastudi', ['beastudi_id' => $id])->row_array();
 	}
 
 	//join table kontribusi_mhs
@@ -37,31 +40,47 @@ class Beastudi_model extends CI_Model
 		return $this->db->query($query)->result_array(); //RESULT ARRAY untuk menampilkan semua data
 	}
 
-	//join table pic
-	public function getBeastudi()
+	//ADMIN. PIC. USER
+	function tampil_data_admin()
 	{
 		$query = "SELECT `beastudi`.*, `pic`.`nama`
-                  FROM `beastudi` JOIN `pic`
-                  ON `beastudi`.`pic_id` = `pic`.`id`
-                ";
-		return $this->db->query($query)->result_array(); //RESULT ARRAY untuk menampilkan semua data
+		          FROM `beastudi` JOIN `pic`
+		          ON `beastudi`.`pic_id` = `pic`.`id`
+				";
+		return $this->db->query($query)->result_array();
 	}
 
-	//ADMIN. PIC. USER
-	function tampil_data()
+	function get_beastudisl()
 	{
-		// $query = $this->db->query('SELECT * FROM `wp9d_wc_order_product_lookup` INNER JOIN wp9d_wc_customer_lookup ON wp9d_wc_order_product_lookup.customer_id=wp9d_wc_customer_lookup.customer_id JOIN user ON wp9d_wc_customer_lookup.email=user.email');
-		// $query = $this->db->query('SELECT * FROM `wp9d_wc_customer_lookup` INNER JOIN user ON wp9d_wc_customer_lookup.email=user.email');
-		// $query = $this->db->query("SELECT * FROM wp9d_wc_customer_lookup, user
-		// WHERE wp9d_wc_customer_lookup.email=user.email
-		// AND wp9d_wc_customer_lookup.email='$_SESSION[email]'");
+		$this->db->select('beastudi.*,COUNT(id) AS item_kontribusi');
+		$this->db->from('beastudi');
+		$this->db->join('detail', 'beastudi_id=detail_beastudi_id');
+		$this->db->join('kontribusi', 'detail_kontribusi_id=id');
+		$this->db->group_by('beastudi_id');
+		$query = $this->db->get();
+		return $query;
+	}
 
-		// $query = "SELECT `beastudi`.*, `pic`.`nama`
-		//           FROM `beastudi` JOIN `pic`
-		//           ON `beastudi`.`pic_id` = `pic`.`id`
-		// 		";
+	function tampil_data_pic()
+	{
+		$query = "SELECT * FROM `beastudi`
+		INNER JOIN pic ON beastudi.pic_id=pic.id
+		JOIN user ON pic.email=user.email
+		WHERE pic.email=user.email
+		AND pic.email='$_SESSION[email]'";
 
-		$query = "SELECT * FROM `beastudi` INNER JOIN `pic` ON beastudi.pic_id=pic.id WHERE beastudi.pic_id=pic.id";
+		return $this->db->query($query)->result_array();
+	}
+
+	function tampil_data_mhs()
+	{
+		$query = "SELECT * FROM `beastudi`
+		JOIN pic ON beastudi.pic_id=pic.id
+		JOIN mahasiswa ON beastudi.nama_id=mahasiswa.id
+		JOIN user ON mahasiswa.email=user.email
+		WHERE mahasiswa.email=user.email
+		AND mahasiswa.email='$_SESSION[email]'";
+
 		return $this->db->query($query)->result_array();
 	}
 
@@ -70,8 +89,6 @@ class Beastudi_model extends CI_Model
 		$query = "INSERT INTO beastudi (nama_mh,jk,semester,angkatan,programstudi,kontribusi,pic_id) VALUES ('$nama','$jk','$semester','$angkatan','$programstudi','$kontribusi','$menu_id')";
 		$this->db->query($query);
 	}
-
-
 
 	public function editDataBeastudi()
 	{
@@ -91,12 +108,39 @@ class Beastudi_model extends CI_Model
 
 	public function deleteDataBeastudiById($id)
 	{
-		$this->db->delete('beastudi', ['id' => $id]);
+		$this->db->delete('beastudi', ['beastudi_id' => $id]);
 	}
 
-	public function hitungJumlahBeastudi()
+	public function hitungJumlahBeastudiAdmin()
 	{
-		$query = $this->db->get('beastudi'); //beastudi /tabel
+		$query = $this->db->get('beastudi');
+
+		if ($query->num_rows() > 0) {
+			return $query->num_rows();
+		} else {
+			return 0;
+		}
+	}
+
+	public function hitungJumlahBeastudiPic()
+	{
+		$query = $this->db->get('beastudi');
+		if ($query->num_rows() > 0) {
+			return $query->num_rows();
+		} else {
+			return 0;
+		}
+	}
+
+	public function hitungJumlahBeastudiMhs()
+	{
+		$query = $this->db->get("SELECT * FROM `beastudi`
+		INNER JOIN pic ON beastudi.pic_id=pic.id
+		JOIN user ON pic.email=user.email
+		WHERE pic.email=user.email
+		AND pic.email='$_SESSION[email]'");
+		// untuk tampilan mahasiswa
+
 		if ($query->num_rows() > 0) {
 			return $query->num_rows();
 		} else {
@@ -107,5 +151,18 @@ class Beastudi_model extends CI_Model
 	public function editdata($where, $table)
 	{
 		return $this->db->get_where($table, $where);
+	}
+
+	public function download()
+	{
+		$query = $this->db->get('user');
+		return $query->result();
+	}
+
+	//
+	function get_kontribusis()
+	{
+		$query = $this->db->get('kontribusi');
+		return $query;
 	}
 }

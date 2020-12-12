@@ -18,9 +18,27 @@
 	<link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
 	<!-- Custom styles for this page -->
 	<link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css'); ?>">
+
+	<!-- multi -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+
 	<style>
 		th {
 			text-align: center;
+		}
+
+		.rata-kanan {
+			float: right;
+			display: block;
+		}
+
+		.jr {
+			margin-left: 5px;
+		}
+
+		.mul-select {
+			width: 100%;
 		}
 	</style>
 </head>

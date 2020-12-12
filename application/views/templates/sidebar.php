@@ -30,7 +30,7 @@
 
 		<?php
 		$menuId = $m['id'];
-		$querySubMenu = "SELECT * 
+		$querySubMenu = "SELECT *
                           FROM `user_sub_menu` JOIN  `user_menu`
                           ON `user_sub_menu`.`menu_id` = `user_menu`.`id`
                           WHERE `user_sub_menu`.`menu_id` = $menuId
@@ -52,9 +52,8 @@
 				</li>
 			<?php endforeach; ?>
 			<!-- Divider -->
-			<!-- <hr class="sidebar-divider mt-1"> -->
-		<?php endforeach; ?>
 
+		<?php endforeach; ?>
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
 				<i class="fas fa-fw fa-user"></i>

@@ -3,16 +3,21 @@
 	<div class="row mt-12">
 		<div class="col md-5">
 			<div class="card-deck">
-				<div class="col-xl-2 col-md-8 mb-7">
-				</div>
-				<div class="col-xl-8 col-md-8 mb-5">
+				<div class="col-xl-12 col-md-8 mb-5">
 					<div class="card border-left-primary shadow h-100 py-2">
 						<div class="modal-body">
 							<?php foreach ($beastudi1 as $bes) { ?>
 								<form action="#" method='get'>
-									<h3 class="text-gray-800">Data <?= $bes->nama_mh ?></h3>
+									<h3 class="text-gray-800">Data
+										<?php
+										$query = $this->db->query("SELECT * FROM mahasiswa")->result();
+										foreach ($query as $k) { ?>
+										<?php if ($k->id == $bes->nama_id) {
+												echo $k->nama;
+											}
+										} ?></h3>
 									<hr>
-									<input type="hidden" name="id" value="<?= $bes->id ?>">
+									<input type="hidden" name="id" value="<?= $bes->beastudi_id ?>">
 									<div class="form-group row">
 										<label for="menu" class="col-sm-3 col-form-label">PIC</label>
 										<div class="col-sm-7 mt-2">:
@@ -29,7 +34,13 @@
 									<div class="form-group row">
 										<label for="menu" class="col-sm-3 col-form-label">Nama</label>
 										<div class="col-sm-7 mt-2">:
-											<a><?= $bes->nama_mh ?></a>
+											<?php
+											$query = $this->db->query("SELECT * FROM mahasiswa")->result();
+											foreach ($query as $k) { ?>
+											<?php if ($k->id == $bes->nama_id) {
+													echo $k->nama;
+												}
+											} ?>
 										</div>
 									</div>
 									<hr>
@@ -43,7 +54,13 @@
 									<div class="form-group row">
 										<label for="jk" class="col-sm-3 col-form-label">Kelas</label>
 										<div class="col-sm-7 mt-2">:
-											<a><?= $beastudi['kelas']; ?></a>
+											<?php
+											$query = $this->db->query("SELECT * FROM kelas")->result();
+											foreach ($query as $k) { ?>
+											<?php if ($k->id == $bes->kelas_id) {
+													echo $k->kelas;
+												}
+											} ?>
 										</div>
 									</div>
 									<hr>
@@ -104,6 +121,13 @@
 										<label for="menu" class="col-sm-3 col-form-label">Keterangan</label>
 										<div class="col-sm-7 mt-2">:
 											<a><?= $bes->keterangan; ?></a>
+										</div>
+									</div>
+									<hr>
+									<div class="form-group row">
+										<label for="menu" class="col-sm-3 col-form-label">Tanggal Kontribusi</label>
+										<div class="col-sm-7 mt-2">:
+											<a> <?= $bes->tgl; ?></a>
 										</div>
 									</div>
 									<hr>
